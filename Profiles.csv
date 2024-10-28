@@ -1,0 +1,301 @@
+,ID,Name,Location_during_crime,Eye_Color,Skin_Color,Hair_Color
+0,P299,James Mason,fourth floor,red,indigo,orange
+1,P086,Christopher Rodriguez,second floor,indigo,indigo,green
+2,P022,Misty Ashley,fourth floor,blue,red,violet
+3,P003,Amanda Brown,lobby,,blue,violet
+4,P036,William Jones,fourth floor,blue,yellow,orange
+5,P158,Karen Roberts,,,yellow,blue
+6,P129,Calvin Powers,fourth floor,,blue,orange
+7,P181,Kaitlin Higgins PhD,third floor,,violet,violet
+8,P136,Jodi Mccarty,,orange,orange,red
+9,P157,Ronald Jackson,second floor,blue,red,red
+10,P209,Alan Banks,lobby,green,green,orange
+11,P160,Joshua Diaz,second floor,yellow,green,red
+12,P037,Julie Adams,,,red,orange
+13,P264,Bryan Stewart,third floor,orange,yellow,indigo
+14,P075,Jay Ellis,second floor,,orange,yellow
+16,P224,Heather Stone,second floor,violet,green,violet
+17,P058,Amanda Santos,second floor,,indigo,red
+18,P292,Donna Guzman,third floor,,violet,green
+19,P287,Donald Stewart,,,yellow,indigo
+20,P231,Micheal Franklin,second floor,yellow,green,orange
+21,P267,Barbara Larson,fourth floor,,blue,green
+22,P178,Zachary Gonzales,lobby,yellow,blue,yellow
+23,P242,Savannah Roberts,fourth floor,red,violet,yellow
+24,P230,William Tucker,fourth floor,,orange,indigo
+25,P262,Christopher Burns,second floor,orange,orange,violet
+26,P104,Sherry Nelson,,blue,blue,red
+27,P155,Margaret Miller,fourth floor,,green,blue
+28,P195,Jose Perry,,orange,green,green
+29,P052,Wendy Moore,,green,violet,indigo
+30,P163,William Schmidt MD,,yellow,orange,blue
+31,P205,Brian Chandler,fourth floor,orange,orange,yellow
+32,P029,Gary Phillips,fourth floor,green,orange,violet
+33,P193,Haley Jones,third floor,,violet,violet
+34,P229,Jerry Lee,,green,orange,yellow
+35,P049,Rachel Taylor,third floor,orange,blue,blue
+36,P249,Kevin Washington,,,orange,red
+37,P252,Edward Gutierrez,lobby,red,violet,yellow
+38,P017,Mary Gonzalez,fourth floor,indigo,indigo,red
+39,P080,Jacob Chaney,lobby,red,orange,violet
+40,P048,Jose Black,second floor,indigo,yellow,red
+41,P279,Cody Martinez,,,yellow,orange
+42,P098,Ronald Boyer,,,indigo,indigo
+43,P171,Donna Dillon,lobby,yellow,orange,blue
+44,P286,Bethany Meyer,,orange,violet,yellow
+45,P090,Latasha Newton,lobby,orange,yellow,blue
+46,P150,Robert Klein,second floor,red,red,red
+47,P251,Larry Roberts,,,violet,blue
+48,P166,Adrian Black,fourth floor,,violet,yellow
+49,P291,Amy White,fourth floor,,violet,red
+50,P244,Jason Terrell,lobby,blue,yellow,orange
+51,P275,Mary Mendoza,third floor,,yellow,blue
+52,P191,William Montgomery,fourth floor,orange,indigo,indigo
+53,P073,Jamie King,,orange,green,red
+54,P272,Kiara Arnold,third floor,red,orange,violet
+55,P060,Brianna Hardy,second floor,,red,green
+56,P001,Andrea Murphy,third floor,green,blue,violet
+57,P105,Debra Hurst,second floor,,violet,indigo
+58,P208,Alexander Allen,second floor,,indigo,violet
+59,P125,Kayla Hanson,third floor,yellow,violet,yellow
+60,P207,Thomas Jones,fourth floor,indigo,red,indigo
+61,P145,Robert Lee,second floor,,indigo,violet
+62,P063,Gary Bailey,second floor,,violet,violet
+63,P141,Lisa Bailey,,,orange,violet
+64,P089,Wesley Terry,second floor,,orange,red
+65,P076,Ashley Hayes,fourth floor,,indigo,green
+66,P296,Jennifer Robinson,third floor,,blue,yellow
+67,P179,Brian Orozco,fourth floor,indigo,red,orange
+68,P216,Mrs. Daisy Johnson MD,lobby,,yellow,blue
+69,P194,Cynthia Obrien DDS,third floor,green,orange,violet
+70,P265,Jason Fischer,fourth floor,violet,indigo,red
+71,P206,Ryan Young,fourth floor,blue,violet,red
+72,P039,Vincent Allen,fourth floor,green,blue,green
+73,P053,Amber Woodward,third floor,orange,red,yellow
+74,P082,Tammy Wiley,second floor,blue,blue,orange
+75,P256,Steven Cisneros,fourth floor,orange,blue,indigo
+76,P255,Alan Thomas,fourth floor,violet,yellow,orange
+77,P132,Amanda Morales,,,blue,green
+78,P213,Adam Little,lobby,green,violet,blue
+79,P293,Mrs. Barbara Harris,fourth floor,indigo,blue,orange
+81,P172,Larry Kennedy,third floor,indigo,red,blue
+82,P140,Robert Thomas,lobby,,orange,blue
+83,P023,Mrs. Kristina Wilson,,violet,blue,blue
+84,P028,Robin Moore,third floor,indigo,blue,green
+85,P084,Colleen Hogan,second floor,violet,violet,indigo
+86,P154,Kyle Morgan,,blue,indigo,yellow
+87,P281,Martin Peters,fourth floor,indigo,orange,blue
+88,P170,George Coleman,third floor,yellow,blue,indigo
+89,P139,Michael Archer,second floor,orange,yellow,red
+90,P156,Alexandria Stephens,third floor,,yellow,orange
+91,P094,Michael Hood,,,yellow,indigo
+92,P067,Gary Lowe,fourth floor,,yellow,green
+93,P143,Tyler Thomas,,yellow,indigo,violet
+94,P198,Christopher Rodriguez,third floor,indigo,red,red
+95,P162,Rhonda Baxter,lobby,orange,yellow,yellow
+96,P055,Daniel Hardy,second floor,red,orange,blue
+97,P257,Patricia Hernandez,fourth floor,,violet,indigo
+98,P119,Peter Rodriguez,fourth floor,red,orange,violet
+99,P300,Michael Mendez,,violet,yellow,blue
+100,P051,Autumn Greer,fourth floor,blue,violet,violet
+101,P188,Brooke Barajas,,yellow,indigo,indigo
+103,P232,Sara Griffith,,,blue,violet
+104,P250,Jeffrey Walsh,fourth floor,,violet,yellow
+105,P032,Eric Reyes,,,violet,red
+106,P019,Brandon Johnson,second floor,green,orange,blue
+107,P149,Brittney Nelson,fourth floor,,indigo,blue
+108,P137,David Collins,third floor,red,blue,yellow
+109,P007,Shawn Jimenez,second floor,red,indigo,yellow
+111,P167,Denise Rodriguez,,yellow,yellow,yellow
+112,P289,Dr. Melinda Ayala MD,,green,yellow,red
+113,P285,Charles Johnson,fourth floor,orange,orange,blue
+114,P021,Patrick Mccarthy,third floor,violet,orange,orange
+116,P227,Emma Nelson,,,blue,green
+117,P234,Miguel Day,second floor,,orange,orange
+118,P153,Mary Lara,lobby,,blue,blue
+119,P148,Julie Lester,third floor,violet,green,orange
+120,P088,Jeremy Garcia,fourth floor,violet,indigo,green
+121,P228,Michael Peterson,,orange,indigo,orange
+122,P077,Emily King,second floor,,green,blue
+123,P295,Jordan Rasmussen,third floor,orange,indigo,violet
+124,P011,Heather Lewis,second floor,,yellow,indigo
+125,P093,Erin Medina,third floor,,violet,green
+127,P138,Andrew Sharp,fourth floor,green,orange,green
+128,P185,Paul Horton,fourth floor,,blue,violet
+129,P030,Elijah Coleman,fourth floor,violet,violet,indigo
+130,P120,Denise Parker,lobby,,yellow,green
+131,P297,Michelle Weber,,yellow,red,orange
+132,P116,Amanda Montes,lobby,red,green,green
+133,P100,Mark Singh,second floor,,green,green
+134,P189,John Roberson,lobby,yellow,green,blue
+135,P134,Jesse Gaines,,indigo,violet,blue
+137,P161,Gregory Trevino,lobby,,green,violet
+138,P152,Cassandra Dunn,third floor,yellow,yellow,indigo
+139,P200,Laura Wagner,third floor,orange,red,orange
+140,P109,Jennifer Wood MD,second floor,yellow,green,indigo
+142,P113,Brittney Jones,fourth floor,,violet,green
+143,P133,Patrick Farrell,second floor,orange,indigo,green
+144,P085,Helen Knight,,violet,orange,red
+146,P199,Mr. Christian Boyd,lobby,,violet,indigo
+147,P180,Michael Lee,fourth floor,red,orange,red
+149,P197,Benjamin Miller,fourth floor,,blue,blue
+150,P004,Mitchell Rivera,lobby,indigo,yellow,blue
+151,P260,Bradley Davis,fourth floor,blue,indigo,yellow
+152,P236,Eric Dominguez,lobby,yellow,red,red
+153,P253,Daniel Campbell,,indigo,yellow,green
+154,P012,James Hansen,third floor,,orange,orange
+155,P225,Marcus Hull,third floor,,orange,indigo
+156,P290,Brandon Bennett,third floor,,yellow,indigo
+157,P064,Douglas Olsen,fourth floor,,orange,blue
+159,P002,Alan Reese,lobby,violet,indigo,indigo
+160,P168,Aaron Logan,second floor,green,indigo,blue
+161,P276,Thomas Shepherd,fourth floor,yellow,indigo,indigo
+162,P042,Tyler Lopez,third floor,violet,violet,green
+163,P165,Nicholas Cooper,fourth floor,,yellow,indigo
+164,P283,Malik Perez,third floor,orange,blue,yellow
+165,P121,Ruth Bryant,lobby,blue,violet,red
+166,P204,Wayne Reid,lobby,,green,indigo
+167,P135,Aaron Weber,second floor,,yellow,yellow
+168,P131,Rebecca Davis,,green,violet,yellow
+169,P211,Joel Maxwell,second floor,indigo,green,orange
+170,P122,Dr. Diana Stafford,,violet,blue,red
+171,P079,Pamela Smith,fourth floor,,yellow,violet
+172,P269,Laura Johnson,fourth floor,,blue,yellow
+174,P128,Sarah Ruiz DVM,third floor,indigo,blue,indigo
+176,P142,Andrew Walker,lobby,indigo,green,indigo
+177,P025,Arthur Gutierrez,,,red,green
+178,P056,Rachel Alexander,fourth floor,,blue,blue
+179,P070,Carrie Jones,fourth floor,indigo,indigo,green
+180,P065,Andrea Banks,third floor,yellow,indigo,red
+181,P212,Troy Nichols,third floor,,indigo,red
+182,P243,Amanda Crawford,,blue,yellow,violet
+183,P280,Catherine Mathews,,red,blue,orange
+184,P169,Joanna Walker,lobby,red,yellow,blue
+185,P107,Stacey Small,lobby,red,violet,indigo
+186,P096,Evan Norris,second floor,,green,orange
+187,P159,Danny Pearson,fourth floor,red,red,blue
+188,P054,Brittany Howard,lobby,blue,violet,orange
+189,P091,Teresa Maldonado,third floor,,green,blue
+190,P069,Jacqueline Huerta,third floor,yellow,orange,red
+192,P083,Brooke Pace,third floor,green,blue,violet
+194,P087,Susan White,third floor,violet,red,yellow
+195,P095,Cassandra Anderson,lobby,orange,red,red
+196,P222,Jennifer Keith MD,lobby,,blue,red
+197,P177,Jessica Jones,,,green,green
+200,P238,Deborah Lee,third floor,,red,blue
+201,P182,Chad English,,,green,blue
+202,P031,Jason Coleman,second floor,violet,green,green
+203,P270,Donald Herrera,lobby,red,red,blue
+204,P110,Ronald Wilson,lobby,,blue,violet
+205,P020,Steven Wu,second floor,,green,green
+206,P115,David Smith,second floor,green,orange,violet
+208,P018,Vanessa Blackwell,lobby,,blue,blue
+209,P118,Melinda Novak,fourth floor,blue,red,green
+210,P045,Diane Nunez,second floor,indigo,green,violet
+211,P103,Edward Moore,,,red,violet
+212,P112,Jason King,lobby,,red,blue
+214,P046,Sandra Tyler,lobby,,green,red
+216,P151,Katelyn Lowe,second floor,indigo,orange,green
+217,P047,Alan Blackwell,lobby,,blue,violet
+218,P043,Sharon Munoz,fourth floor,,red,red
+219,P201,Larry Pena,lobby,,violet,blue
+220,P033,Breanna Stevens,second floor,,yellow,indigo
+221,P027,Christina Obrien,third floor,blue,indigo,indigo
+222,P010,Gregory Kennedy,,,indigo,orange
+224,P176,Paul Buchanan,lobby,,violet,green
+225,P015,Anthony Edwards,second floor,orange,indigo,indigo
+226,P144,Shane Hernandez,fourth floor,,green,orange
+228,P101,Matthew Johns,lobby,yellow,yellow,violet
+229,P266,Cynthia Conner,lobby,green,blue,orange
+230,P117,Dustin Brown,fourth floor,red,indigo,green
+231,P164,Jesus Santos,fourth floor,violet,yellow,yellow
+232,P106,Adrian Hernandez,,yellow,violet,orange
+233,P111,John Garcia,third floor,,red,orange
+234,P173,Julie Zamora,second floor,blue,blue,yellow
+236,P284,Tiffany Fisher,second floor,blue,blue,green
+238,P239,Rhonda Carey,lobby,,orange,red
+239,P038,Larry Walter,,blue,yellow,orange
+240,P245,Jeffrey Villa,third floor,red,violet,yellow
+241,P259,Jessica Woodard,second floor,,green,blue
+242,P013,Ronald Harrison,second floor,violet,indigo,yellow
+243,P294,Bradley Jimenez,second floor,red,red,red
+244,P050,Patrick Watson,,,orange,blue
+248,P220,Sara Murray,third floor,,red,red
+249,P184,Mary Ferrell,third floor,blue,green,yellow
+250,P175,Colton Brown,second floor,green,orange,yellow
+251,P223,Michael Rodriguez,lobby,indigo,orange,yellow
+255,P298,Marie Flynn,third floor,,orange,green
+256,P282,Anne Butler,third floor,,violet,green
+259,P006,Nancy Bradshaw,,,indigo,violet
+260,P059,Cynthia Marquez,second floor,indigo,red,orange
+261,P041,Anna Keller,third floor,yellow,blue,indigo
+262,P261,Laura Davis,third floor,green,red,red
+263,P214,Jeffrey Huang,,,indigo,red
+264,P268,Brianna Smith,second floor,,green,orange
+265,P246,Barbara Anderson,second floor,,indigo,orange
+267,P240,Alfred Munoz,,,violet,red
+268,P235,Timothy Davila,fourth floor,,yellow,green
+270,P024,Jason Hoffman,second floor,violet,red,red
+271,P078,Jessica Porter,,,green,orange
+272,P130,Robert Ochoa,second floor,,blue,blue
+273,P271,Sandra Williams,,,blue,green
+274,P215,Madison Washington,fourth floor,,blue,blue
+275,P008,Cheryl Thomas,fourth floor,,red,orange
+276,P147,Benjamin Wilson,second floor,,yellow,orange
+277,P187,Daniel Steele,lobby,green,red,red
+278,P066,Bonnie Barnes,second floor,green,blue,green
+279,P035,Joseph Mendoza,second floor,indigo,red,blue
+281,P123,Shaun Smith,third floor,,blue,orange
+282,P248,Jorge Adams,fourth floor,yellow,green,blue
+283,P202,Ishan Kar,second floor,orange,green,blue
+284,P097,Stephanie Brennan,fourth floor,violet,green,orange
+285,P288,Allen Downs,fourth floor,yellow,red,orange
+287,P009,Michael Moreno,second floor,,violet,yellow
+289,P044,Aaron Sanchez,fourth floor,blue,violet,violet
+292,P034,Cheryl Lambert,third floor,,green,red
+293,P099,Abigail Nelson,lobby,blue,violet,green
+294,P108,Joshua Savage,third floor,orange,indigo,yellow
+295,P226,Paul Mejia DDS,lobby,red,indigo,yellow
+296,P217,Jason Wright,fourth floor,,indigo,violet
+298,P258,Brian Smith,third floor,yellow,orange,blue
+299,P014,Gregory Thompson,third floor,yellow,orange,red
+300,P247,Charles Jones,,orange,indigo,red
+301,P040,Eric Johnson,third floor,,indigo,green
+303,P016,Gregory Charles,fourth floor,,red,indigo
+304,P057,Sandra Weaver,fourth floor,,blue,yellow
+305,P210,David Anderson,third floor,red,orange,red
+306,P254,Shannon Richard,third floor,violet,violet,yellow
+307,P237,Katherine Young,fourth floor,yellow,blue,yellow
+308,P274,Brad Robinson,fourth floor,,orange,orange
+309,P277,Andrea Le,,red,orange,yellow
+310,P190,Patrick Jimenez,third floor,,yellow,red
+311,P146,Manuel Mendoza,lobby,yellow,blue,yellow
+312,P241,Traci Martinez,fourth floor,,indigo,orange
+313,P102,Timothy Horne,fourth floor,yellow,yellow,violet
+314,P278,Michael Reid,lobby,indigo,indigo,orange
+315,P072,Angela Sawyer,third floor,violet,indigo,blue
+316,P062,Scott Webb,second floor,red,red,green
+317,P081,Ashley Chang,third floor,indigo,violet,indigo
+318,P183,Jamie West,lobby,,indigo,indigo
+319,P219,Chelsea Woods,third floor,,blue,orange
+320,P061,Carlos Caldwell,second floor,,yellow,blue
+321,P186,Gabriel Vincent,fourth floor,orange,green,red
+323,P114,Stephanie Lam,second floor,,orange,indigo
+324,P196,Taylor Watson,lobby,green,green,violet
+325,P092,Pamela Salas,,red,indigo,yellow
+327,P221,Joshua Morris,second floor,blue,violet,green
+328,P124,Gregory Chung,lobby,blue,blue,violet
+330,P192,Laura Mckenzie,third floor,,violet,yellow
+332,P074,Michelle Jimenez,second floor,,red,red
+333,P127,Taylor Douglas,third floor,green,orange,red
+334,P174,Brooke Clark,second floor,indigo,yellow,indigo
+335,P005,Mr. Thomas Boyd,,green,indigo,violet
+336,P026,Jane Smith,third floor,,blue,indigo
+337,P071,Alan Hill,third floor,yellow,red,violet
+338,P263,Victor Petty,third floor,,indigo,red
+339,P068,Anthony Washington,lobby,,violet,red
+341,P218,Shannon Abbott,fourth floor,green,green,blue
+343,P126,Kenneth Watson,,violet,indigo,red
+344,P203,Donald Anderson,third floor,yellow,indigo,orange
+345,P273,Harold Watkins,fourth floor,blue,indigo,red
+347,P233,Karen Lambert,second floor,,yellow,orange
