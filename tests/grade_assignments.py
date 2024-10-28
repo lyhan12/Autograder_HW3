@@ -317,8 +317,8 @@ class GradeAssignment(unittest.TestCase):
 
 
     @partial_credit(5.0)
-    @number("3.3")
-    def test_3_3(self, set_score=None):
+    @number("2.3.3")
+    def test_2_3_3(self, set_score=None):
         print('')
         begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.3 (5 Points):**")
         begin_cell = begin_cells[0]
@@ -345,8 +345,8 @@ class GradeAssignment(unittest.TestCase):
         set_score(score)
 
     @partial_credit(5.0)
-    @number("3.4")
-    def test_3_4(self, set_score=None):
+    @number("2.3.4")
+    def test_2_3_4(self, set_score=None):
         print('')
         begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.4 (5 Points):**")
         begin_cell = begin_cells[0]
@@ -371,6 +371,91 @@ class GradeAssignment(unittest.TestCase):
                 if correct_skin_colors:
                     score += 1.5
         set_score(score)
+
+    @partial_credit(5.0)
+    @number("2.3.5")
+    def test_2_3_5(self, set_score=None):
+        print('')
+
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.5 (5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 3.6 (5 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+        smallest_height_cell = cell_vars.get("smallest_height", cell_vars.get("min_height", None))
+        largest_height_cell = cell_vars.get("largest_height", cell_vars.get("max_height", None))
+
+        exists_s_df = True if smallest_height_cell is not None else False
+        exists_l_df = True if largest_height_cell is not None else False
+
+
+        case_1 = smallest_height_cell == 150
+        case_2 = largest_height_cell == 170
+
+        total_score = 0.0
+        if exists_s_df:
+            total_score += 1.0
+        if exists_l_df:
+            total_score += 1.0
+
+        if case_1:
+            total_score += 1.5
+        if case_2:
+            total_score += 1.5
+
+        print("Found df of smallest_height: ", exists_s_df)
+        print("Found df of largest_height: ", exists_l_df)
+        print("smallest_height val: ", case_1)
+        print("largest_height val: ", case_2)
+
+        set_score(total_score)
+
+    @partial_credit(5.0)
+    @number("2.3.6")
+    def test_2_3_6(self, set_score=None):
+        print('')
+
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.6 (5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+
+        end_cells = find_cells_with_text(self.notebook_path, "## Q4) Parking Permit")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+        smallest_age_cell = cell_vars.get("smallest_age", cell_vars.get("min_age", None))
+        largest_age_cell = cell_vars.get("largest_age", cell_vars.get("max_age", None))
+
+        exists_s_df = True if smallest_age_cell is not None else False
+        exists_l_df = True if largest_age_cell is not None else False
+
+
+        case_1 = smallest_age_cell == 21
+        case_2 = largest_age_cell == 35
+
+        total_score = 0.0
+        if exists_s_df:
+            total_score += 1.0
+        if exists_l_df:
+            total_score += 1.0
+
+        if case_1:
+            total_score += 1.5
+        if case_2:
+            total_score += 1.5
+
+        print("Found df of smallest_age: ", exists_s_df)
+        print("Found df of largest_age: ", exists_l_df)
+        print("smallest_age val: ", case_1)
+        print("largest_age val: ", case_2)
+
+        set_score(total_score)
+
 
 
 
