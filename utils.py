@@ -307,6 +307,56 @@ def extract_initial_variables(notebook_path):
     
     return namespaces
 
+
+
+def search_plots_in_extracted_vars(cell_vars):
+    """
+    Extracts plot data from the figures stored in the 'plt' variable of cell_vars.
+    Returns a structured list of dictionaries containing plot details, including
+    titles, axis labels, and data points for each figure.
+
+    :param cell_vars: A dictionary containing variables from executed cells, expected
+                      to include 'plt' if plots were generated.
+    :return: A list of dictionaries with plot information, or None if 'plt' is not in cell_vars.
+    """
+    # Check if 'plt' exists in cell_vars
+    if "plt" not in cell_vars:
+        return None  # Return None if no plots were generated
+
+    # Get active figures from the 'plt' variable
+    figures = [manager.canvas.figure for manager in cell_vars["plt"]._pylab_helpers.Gcf.get_all_fig_managers()]
+
+    if not figures:
+        return []  # Return an empty list if no figures are found
+
+    # Extract plot information from figures
+    figure_data = []
+    for fig in figures:
+        fig_info = {
+            "figure_title": fig._suptitle.get_text() if fig._suptitle else "No title",
+            "axes": []
+        }
+
+        for ax in fig.axes:
+            ax_info = {
+                "axis_title": ax.get_title(),
+                "x_label": ax.get_xlabel(),
+                "y_label": ax.get_ylabel(),
+                "data_points": []
+            }
+
+            # Extract data points from lines in the axis
+            for line in ax.lines:
+                x_data = line.get_xdata().tolist()
+                y_data = line.get_ydata().tolist()
+                ax_info["data_points"].append(list(zip(x_data, y_data)))
+
+            fig_info["axes"].append(ax_info)
+
+        figure_data.append(fig_info)
+
+    return figure_data
+
 def extract_cell_content_and_outputs(notebook_path, start_index, end_index, line_width=80):
     """
     Extracts the content of text (markdown) and output (from code) cells in a specified index range of a Jupyter notebook,
@@ -361,7 +411,7 @@ def extract_cell_content_and_outputs(notebook_path, start_index, end_index, line
     return extracted_cells
 
 
-def search_in_extracted_content(extracted_cells, search_string, case_sensitive=False):
+def search_text_in_extracted_content(extracted_cells, search_string, case_sensitive=False):
     """
     Searches for a string within the content and outputs of extracted cells.
     
