@@ -399,6 +399,69 @@ class GradeAssignment(unittest.TestCase):
 
         set_score(score)
 
+    @partial_credit(5.0)
+    @number("2.3.1")
+    def test_2_3_1(self, set_score=None):
+        print('')
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.1 (5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 3.2 (5 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+        important_witnesses = cell_vars.get("important_witnesses", None)
+
+
+        exists_important_witnesses = (important_witnesses is not None) and (type(important_witnesses) == pd.DataFrame)
+        
+        witness_df = pd.read_csv("Witness.csv")
+        profiles_df = pd.read_csv("Profiles.csv")
+        second_floor_profiles_df = profiles_df[profiles_df['Location_during_crime'].str.contains('second floor', case=False, na=False)]
+        ref_important_witnesses = pd.merge(second_floor_profiles_df[['ID']], witness_df, on='ID', how='inner')
+
+    
+
+        important_witnesses_ids = set(important_witnesses["ID"])
+        ref_important_witnesses_ids = set(ref_important_witnesses["ID"])
+        
+        # Check if sets are equal
+        correct_important_witnesses = important_witnesses_ids == ref_important_witnesses_ids
+        score = 0.0
+        if exists_important_witnesses:
+            score += 2.0
+            if correct_important_witnesses:
+                score += 3
+        set_score(score)
+
+
+    @partial_credit(5.0)
+    @number("2.3.2")
+    def test_2_3_2(self, set_score=None):
+        print('')
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.2 (5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 3.3 (5 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+        potential_eye_colors = cell_vars.get("potential_eye_colors", None)
+        expected_eye_colors = {'orange', 'green', 'blue', 'violet'}
+        exists_potential_eye_colors = (potential_eye_colors is not None) and (type(potential_eye_colors) == list)
+        unique_eye_colors = len(potential_eye_colors) == len(set(potential_eye_colors))
+        correct_eye_colors = set(potential_eye_colors) == expected_eye_colors
+        print("Exists potential_eye_colors: ", exists_potential_eye_colors)
+        print("No duplicate values in potential_eye_colors: ", unique_eye_colors)
+        print("Correct eye colors found: ", correct_eye_colors)
+        score = 0.0
+        if exists_potential_eye_colors:
+            score += 2.0
+            if unique_eye_colors:
+                score += 1.5
+            if correct_eye_colors:
+                score += 1.5
+        set_score(score)
 
     @partial_credit(5.0)
     @number("2.3.3")
@@ -457,8 +520,8 @@ class GradeAssignment(unittest.TestCase):
         set_score(score)
 
     @partial_credit(5.0)
-    @number("3.5")
-    def test_3_5(self, set_score=None):
+    @number("2.3.5")
+    def test_2_3_5(self, set_score=None):
         print('')
 
         begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.5 (5 Points):**")
@@ -499,8 +562,8 @@ class GradeAssignment(unittest.TestCase):
         set_score(total_score)
 
     @partial_credit(5.0)
-    @number("3.6")
-    def test_3_6(self, set_score=None):
+    @number("2.3.6")
+    def test_2_3_6(self, set_score=None):
         print('')
 
         begin_cells = find_cells_with_text(self.notebook_path, "**TASK 3.6 (5 Points):**")
@@ -537,5 +600,97 @@ class GradeAssignment(unittest.TestCase):
         print("Found df of largest_age: ", exists_l_df)
         print("smallest_age val: ", case_1)
         print("largest_age val: ", case_2)
+
+        set_score(total_score)
+
+
+# EDITS by Aishani
+    @partial_credit(2.0)
+    @number("2.4.1")
+    def test_2_4_1(self, set_score=None):
+        print('')
+
+        expected_vars = ["lot_11B", "lot_1B", "lot_6", "regents_garage", "interrogation_df"]
+        
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 4.1 (2 Points)**:")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 4.2 (5 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+        
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+
+        all_vars_loaded = all(var in cell_vars and cell_vars.get(var) is not None for var in expected_vars)
+        print("Loaded variables: ", {var: cell_vars.get(var) is not None for var in expected_vars})
+        
+        total_score = 2.0 if all_vars_loaded else 0.0
+        set_score(total_score)
+
+
+
+    @partial_credit(5.0)
+    @number("2.4.2")
+    def test_2_4_2(self, set_score=None):
+        print('')
+        
+        with open(self.notebook_path, 'r', encoding='utf-8') as notebook_file:
+            notebook_data = json.load(notebook_file)
+
+        question_text = "***Which parking lot does the culprit have a permit in, how do you know?***"
+        student_answer = ""
+
+        for cell in notebook_data['cells']:
+            if cell['cell_type'] == 'markdown' and question_text in ''.join(cell['source']):
+                cell_content = ''.join(cell['source'])
+                answer_start_index = cell_content.lower().find("answer here:") + len("answer here:")
+                if answer_start_index > len("answer here:"):
+                    student_answer = cell_content[answer_start_index:].strip()
+                break
+
+        student_answer = student_answer.lower()
+        total_score = 0.0
+        if '11b' in student_answer:
+            total_score += 2.5
+        if 'hex' in student_answer or 'ascii' in student_answer:
+            total_score += 0.5
+        if 'single' in student_answer:
+            total_score += 1.0
+        if 'east' in student_answer:
+            total_score += 1.0
+
+        set_score(total_score)
+
+    @partial_credit(5.0)
+    @number("2.5.1")
+    def test_2_5_1(self, set_score=None):
+        print('')
+        
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 5.1(5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
+
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 5.2 (1 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
+
+
+        cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
+        culprit_var = cell_vars.get("culprit", None)
+
+        culprit = str(culprit_var) if culprit_var is not None else None
+
+        total_score = 0.0
+        expected_culprit = "Arthur Gutierrez"
+
+        if culprit is not None:
+            if expected_culprit in culprit:
+                total_score += 5.0
+            else:
+                total_score += 3.0 
+
+        print("Culprit name found: ", culprit)
+        print("Total Score: ", total_score)
 
         set_score(total_score)
