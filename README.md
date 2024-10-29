@@ -45,7 +45,7 @@ If the assignment question is well-structured for autograding, implementating th
   - When checking numbers or some simple text tokens.
   - When we know the name of specific output variable (It should be specified in the question)
 - Bad Candidates
-  - Grading wrong texts with students' opinions
+  - Grading long texts with students' opinions
   - When we do not know the variable names that students will use
   - When we graiding visual results (e.g. plots)
 
@@ -98,6 +98,30 @@ The begining end of relevant cells are identified by question titles (e.g. `TASK
   - (2) Implement required inspections
   - (3) Set scores for each case
 
+### Setting Up with External Resource Fields (e.g. csv data)
+- Basically you should include all the required files local to the repository.
+- Next step is registering those files during the initialization of GradeAssignment class (`/tests/grade_assignments.py`). You can add these commands to __init__ function of the class:
+```
+    def __init__(self, *args, **kwargs):
+        super(GradeAssignment, self).__init__(*args, **kwargs)
+        self.notebook_path = None
+
+        self.local_files = [
+            "Interrogation_Statements.csv",
+            "london_weather.csv",
+            "Lot_11B.csv",
+            "Lot_1B.csv",
+            "Lot_6.csv",
+            "Medical_Records.csv",
+            "Profiles.csv",
+            "Regents_Drive_Garage.csv",
+            "Witness.csv"
+        ]
+        for file in self.local_files:
+            register_local_file(file)
+```
+- These register files will be loaded during the grading. When some file name A is registered, it will replace every hardcoded path ".../A" in the student's submission file with the local path "./A" before execution. For example, if some student's code try to load "/content/drive/MyDrive/Sophomore/Semester 1/CMSC320/HW3/Lot_1B.csv", it will replace it with "./Lot_1B.csv" during the cell execution, so it can be properly loaded properly.
+
 ### How to Run Autograder in the Gradescope
 - You can refer to the offical Gradescope documents for the detailed explanation about how to upload the Autograder.
 
@@ -129,3 +153,8 @@ The begining end of relevant cells are identified by question titles (e.g. `TASK
 
 ### When Regrading the results of the Autograder
 - You can manually adjust the scores for each regrade request without needing to re-run the autograder.
+
+### Next Thing To Do
+- Update Readme to incorporate the plot grading (it is now possible)
+- Convert grade_assignments into ipynb format and add test ipynb file. This is for easy colab collaboration for future grading.
+- Integrate multiple repos of the autograder into one repo for easy tracking and management.
