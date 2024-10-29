@@ -7,6 +7,8 @@ import pandas as pd
 import numpy as np
 import requests
 
+import json
+
 from utils import (
         register_local_file, 
         extract_variables, 
@@ -448,7 +450,7 @@ class GradeAssignment(unittest.TestCase):
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         potential_eye_colors = cell_vars.get("potential_eye_colors", None)
         expected_eye_colors = {'orange', 'green', 'blue', 'violet'}
-        exists_potential_eye_colors = (potential_eye_colors is not None) and (type(potential_eye_colors) == list)
+        exists_potential_eye_colors = (potential_eye_colors is not None) and ((type(potential_eye_colors) == list) or (type(potential_eye_colors) == set))
         unique_eye_colors = len(potential_eye_colors) == len(set(potential_eye_colors))
         correct_eye_colors = set(potential_eye_colors) == expected_eye_colors
         print("Exists potential_eye_colors: ", exists_potential_eye_colors)
@@ -476,7 +478,8 @@ class GradeAssignment(unittest.TestCase):
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         potential_hair_colors = cell_vars.get("potential_hair_colors", None)
         expected_hair_colors = {'orange', 'green', 'blue', 'violet'}
-        exists_potential_hair_colors = (potential_hair_colors is not None) and (type(potential_hair_colors) == list)
+        exists_potential_hair_colors = (potential_hair_colors is not None) and ((type(potential_hair_colors) == list) or (type(potential_hair_colors) == set))
+
         unique_hair_colors = len(potential_hair_colors) == len(set(potential_hair_colors))
         correct_hair_colors = set(potential_hair_colors) == expected_hair_colors
         print("Exists potential_hair_colors: ", exists_potential_hair_colors)
@@ -504,7 +507,8 @@ class GradeAssignment(unittest.TestCase):
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         potential_skin_colors = cell_vars.get("potential_skin_colors", None)
         expected_skin_colors = {'red', 'green', 'orange'}
-        exists_potential_skin_colors = (potential_skin_colors is not None) and (type(potential_skin_colors) == list)
+        exists_potential_skin_colors = (potential_skin_colors is not None) and ((type(potential_skin_colors) == list) or (type(potential_skin_colors) == set))
+
         unique_skin_colors = len(potential_skin_colors) == len(set(potential_skin_colors))
         correct_skin_colors = set(potential_skin_colors) == expected_skin_colors
         print("Exists potential_skin_colors: ", exists_potential_skin_colors)
@@ -678,6 +682,10 @@ class GradeAssignment(unittest.TestCase):
 
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         culprit_var = cell_vars.get("culprit", None)
+
+        # pandas dataframe
+        # if type(culprit_var) == pd.DataFrame:
+        #     culprit_var = culprit_var["Name"].values[0]
 
         culprit = str(culprit_var) if culprit_var is not None else None
 
