@@ -61,7 +61,6 @@ class GradeAssignment(unittest.TestCase):
         cell_plots = search_plots_in_extracted_vars(cell_vars)
 
         last_plot = cell_plots[-1]
-
         has_plot = len(cell_plots) > 0
         
         if not has_plot:
@@ -69,14 +68,18 @@ class GradeAssignment(unittest.TestCase):
             set_score(0.0)
             return
 
-        figure_title= last_plot["figure_title"]
-        last_ax = last_plot["axes"][-1]
-
+        figure_title= last_plot["figure_title"] 
         has_ax = len(last_plot["axes"]) > 0
         if not has_ax:
             print("No axes found")
             set_score(0.0)
             return
+
+        #find the first ax that ax["data_points"] is non empty set
+        last_ax = None
+        for last_ax in last_plot["axes"]:
+            if len(last_ax["data_points"]) > 0:
+                break
 
         axis_title = last_ax["axis_title"]
         x_label = last_ax["x_label"]
@@ -368,6 +371,19 @@ class GradeAssignment(unittest.TestCase):
         exists_profiles_df = (profiles_df is not None) and (type(profiles_df) == pd.DataFrame)
         has_Age_column = "Age" in profiles_df.columns
 
+        if not has_Age_column:
+            medical_df = cell_vars.get("Medical_Records", None)
+            if medical_df is None:
+                medical_df = cell_vars.get("medical_df", None)
+
+            profiles_df = medical_df
+            has_Age_column = "Age" in profiles_df.columns
+
+            print("Dit not define Age in the Profiles dataframe, but in Medical Records dataframe")
+            set_score(3.0)
+            return
+
+
         # Search a row with name "Amanda Brown" and get the age value
         if has_Age_column:
             age_Amanda_Brown = int(profiles_df.loc[profiles_df["Name"] == "Amanda Brown", "Age"].values[0])
@@ -378,13 +394,13 @@ class GradeAssignment(unittest.TestCase):
             age_Harold_Watkins = -1
             age_William_Jones = -1
 
-        age_exact = (age_Amanda_Brown == 28) and (age_Harold_Watkins == 21) and (age_William_Jones == 34)
+        age_exact = (age_Amanda_Brown == 28 or age_Amanda_Brown == 29) and (age_Harold_Watkins == 21 or age_Harold_Watkins == 22) and (age_William_Jones == 34)
         age_similar = (27 <= age_Amanda_Brown <= 29) and (20 <= age_Harold_Watkins <= 22) and (33 <= age_William_Jones <= 35)
 
         print("Has Age column in Profile: ", has_Age_column)
         print("Age_Check_Amanda_Brown (28): ", age_Amanda_Brown)
         print("Age_Check_Harold_Watkins (21): ", age_Harold_Watkins)
-        print("Age_Check_William_Jones (45):", age_William_Jones)
+        print("Age_Check_William_Jones (34):", age_William_Jones)
         print("Exact Age for Amanda, Harold, William: ", age_exact)
         print("Similar Age for Amanda, Harold, William: ", age_similar)
 
@@ -449,10 +465,19 @@ class GradeAssignment(unittest.TestCase):
         end_cell_idx = end_cell['index']
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         potential_eye_colors = cell_vars.get("potential_eye_colors", None)
+        exists_potential_eye_colors = (potential_eye_colors is not None)
+
+
         expected_eye_colors = {'orange', 'green', 'blue', 'violet'}
-        exists_potential_eye_colors = (potential_eye_colors is not None) and ((type(potential_eye_colors) == list) or (type(potential_eye_colors) == set))
-        unique_eye_colors = len(potential_eye_colors) == len(set(potential_eye_colors))
-        correct_eye_colors = set(potential_eye_colors) == expected_eye_colors
+
+        correct_eye_colors = True
+        for color in expected_eye_colors:
+            if color not in str(potential_eye_colors):
+                print(f"Expected eye color {color} not found in potential_eye_colors")
+                correct_eye_colors = False
+
+
+        unique_eye_colors = True
         print("Exists potential_eye_colors: ", exists_potential_eye_colors)
         print("No duplicate values in potential_eye_colors: ", unique_eye_colors)
         print("Correct eye colors found: ", correct_eye_colors)
@@ -464,6 +489,7 @@ class GradeAssignment(unittest.TestCase):
             if correct_eye_colors:
                 score += 1.5
         set_score(score)
+
 
     @partial_credit(5.0)
     @number("2.3.3")
@@ -477,11 +503,18 @@ class GradeAssignment(unittest.TestCase):
         end_cell_idx = end_cell['index']
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
         potential_hair_colors = cell_vars.get("potential_hair_colors", None)
-        expected_hair_colors = {'orange', 'green', 'blue', 'violet'}
-        exists_potential_hair_colors = (potential_hair_colors is not None) and ((type(potential_hair_colors) == list) or (type(potential_hair_colors) == set))
+        exists_potential_hair_colors = (potential_hair_colors is not None)
 
-        unique_hair_colors = len(potential_hair_colors) == len(set(potential_hair_colors))
-        correct_hair_colors = set(potential_hair_colors) == expected_hair_colors
+        expected_hair_colors = {'orange', 'green', 'blue', 'violet'}
+
+        correct_hair_colors = True
+        for color in expected_hair_colors:
+            if color not in str(potential_hair_colors):
+                print(f"Expected eye color {color} not found in potential_eye_colors")
+                correct_hair_colors = False
+
+        unique_hair_colors = True
+
         print("Exists potential_hair_colors: ", exists_potential_hair_colors)
         print("No duplicate values in potential_hair_colors: ", unique_hair_colors)
         print("Correct hair colors found: ", correct_hair_colors)
@@ -505,12 +538,19 @@ class GradeAssignment(unittest.TestCase):
         end_cell = end_cells[0]
         end_cell_idx = end_cell['index']
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
-        potential_skin_colors = cell_vars.get("potential_skin_colors", None)
-        expected_skin_colors = {'red', 'green', 'orange'}
-        exists_potential_skin_colors = (potential_skin_colors is not None) and ((type(potential_skin_colors) == list) or (type(potential_skin_colors) == set))
 
-        unique_skin_colors = len(potential_skin_colors) == len(set(potential_skin_colors))
-        correct_skin_colors = set(potential_skin_colors) == expected_skin_colors
+        potential_skin_colors = cell_vars.get("potential_skin_colors", None)
+        exists_potential_skin_colors = (potential_skin_colors is not None)
+
+        expected_skin_colors = {'red', 'green', 'orange'}
+
+        correct_skin_colors = True
+        for color in expected_skin_colors:
+            if color not in str(potential_skin_colors):
+                print(f"Expected eye color {color} not found in potential_eye_colors")
+                correct_skin_colors = False
+
+        unique_skin_colors = True
         print("Exists potential_skin_colors: ", exists_potential_skin_colors)
         print("No duplicate values in potential_skin_colors: ", unique_skin_colors)
         print("Correct skin colors found: ", correct_skin_colors)
@@ -637,34 +677,55 @@ class GradeAssignment(unittest.TestCase):
     @partial_credit(5.0)
     @number("2.4.2")
     def test_2_4_2(self, set_score=None):
-        print('')
-        
-        with open(self.notebook_path, 'r', encoding='utf-8') as notebook_file:
-            notebook_data = json.load(notebook_file)
 
-        question_text = "***Which parking lot does the culprit have a permit in, how do you know?***"
-        student_answer = ""
+        begin_cells = find_cells_with_text(self.notebook_path, "**TASK 4.2 (5 Points):**")
+        begin_cell = begin_cells[0]
+        begin_cell_idx = begin_cell['index'] - 1
 
-        for cell in notebook_data['cells']:
-            if cell['cell_type'] == 'markdown' and question_text in ''.join(cell['source']):
-                cell_content = ''.join(cell['source'])
-                answer_start_index = cell_content.lower().find("answer here:") + len("answer here:")
-                if answer_start_index > len("answer here:"):
-                    student_answer = cell_content[answer_start_index:].strip()
-                break
+        end_cells = find_cells_with_text(self.notebook_path, "**TASK 5.1(5 Points):**")
+        end_cell = end_cells[0]
+        end_cell_idx = end_cell['index']
 
-        student_answer = student_answer.lower()
+        cell_texts = extract_cell_content_and_outputs(self.notebook_path, begin_cell_idx, end_cell_idx)
+
+        search_11b, _ = search_text_in_extracted_content(cell_texts, "11b")
+
+        search_hex, _ = search_text_in_extracted_content(cell_texts, "hex")
+        search_53, _ = search_text_in_extracted_content(cell_texts, "53")
+        search_083, _ = search_text_in_extracted_content(cell_texts, "083")
+        search_s, _ = search_text_in_extracted_content(cell_texts, "s")
+        search_ascii, _ = search_text_in_extracted_content(cell_texts, "ascii")
+        search_single, _ = search_text_in_extracted_content(cell_texts, "ascii")
+
+        search_01000101, _ = search_text_in_extracted_content(cell_texts, "01000101")
+        search_45,_ = search_text_in_extracted_content(cell_texts, "45")
+        search_E,_ = search_text_in_extracted_content(cell_texts, "E")
+        search_east,_ = search_text_in_extracted_content(cell_texts, "east")
+
+
+        answer_correct = search_11b
+        explained_single_leveled = search_hex or search_53 or search_083 or search_s or search_ascii or search_single
+        explained_east = search_01000101 or search_45 or search_E or search_east
+
+        print("Answer correct (11B): ", answer_correct)
+        print("Explained about single leveld parking garage(hex, 53, 083, s, ...):", explained_single_leveled)
+        print("Explained that the garage is east of the stadium (01000101, 45, E, east):", explained_east)
+
         total_score = 0.0
-        if '11b' in student_answer:
+        if answer_correct:
             total_score += 2.5
-        if 'hex' in student_answer or 'ascii' in student_answer:
-            total_score += 0.5
-        if 'single' in student_answer:
+        if explained_single_leveled or explained_east:
             total_score += 1.0
-        if 'east' in student_answer:
-            total_score += 1.0
+
+            if explained_single_leveled and explained_east:
+                total_score += 1.5
+
 
         set_score(total_score)
+
+
+
+
 
     @partial_credit(5.0)
     @number("2.5.1")
