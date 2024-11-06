@@ -6,6 +6,7 @@ import traceback
 from textwrap import wrap
 
 import re
+import ast
 
 # Set to store registered local filenames
 REGISTERED_FILES = set()
@@ -256,15 +257,12 @@ def execute_cell(python_code, namespace):
         with io.StringIO() as buf, contextlib.redirect_stdout(buf):
             _safe_exec(python_code, namespace)
     except Exception as e:
-        # If you want to log the error to stdout or another logging system
         print(f"Error executing the code: {traceback.format_exc()}")
 
 def extract_variables(notebook_path, cell_idx=-1):
     """
-    Extracts variables from the student's notebook up to the specified cell index.
-    :param notebook_path: Path to the notebook file.
-    :param cell_idx: Index of the last cell to execute, default -1 (execute all cells).
-    :return: Dictionary of the final state of all variables up to the specified cell.
+    Extracts variables from the notebook up to the specified cell index.
+    Tracks variable renaming, so renamed variables are included.
     """
     with open(notebook_path, 'r', encoding='utf-8') as f:
         nb = nbformat.read(f, as_version=4)
@@ -272,16 +270,39 @@ def extract_variables(notebook_path, cell_idx=-1):
     exporter = PythonExporter()
     namespace = {}
 
-    # Iterate over the cells, execute them up to the specified cell index or all if cell_idx is -1
     for index, cell in enumerate(nb.cells):
         if cell.cell_type == 'code':
             if cell_idx != -1 and index > cell_idx:
-                break  # Stop processing if we reach the specified cell index
+                break
             python_code = exporter.from_notebook_node(nbformat.v4.new_notebook(cells=[cell]))[0]
-            execute_cell(python_code, namespace)
+                        
+            # Execute the cell
+            execute_cell(python_code, namespace)            
     
     return namespace
 
+def extract_initial_variables(notebook_path):
+    """Extracts all variables initially loaded in the notebook, tracking renamed variables."""
+    with open(notebook_path, 'r', encoding='utf-8') as f:
+        nb = nbformat.read(f, as_version=4)
+    
+    exporter = PythonExporter()
+    namespaces = {}
+    cell_namespace = {}
+
+    for cell in nb.cells:
+        if cell.cell_type == 'code':
+            python_code = exporter.from_notebook_node(nbformat.v4.new_notebook(cells=[cell]))[0]
+                        
+            # Execute the cell
+            execute_cell(python_code, cell_namespace)
+                        
+            # Only add new variables to the main namespace
+            for key, value in cell_namespace.items():
+                if key not in namespaces:
+                    namespaces[key] = value
+
+    return namespaces
 
 def extract_initial_variables(notebook_path):
     """Extracts all variables right after they are loaded in the notebook for the first time."""
@@ -290,7 +311,6 @@ def extract_initial_variables(notebook_path):
     
     exporter = PythonExporter()
     namespaces = {}
-
     cell_namespace = {}
 
     for cell in nb.cells:
@@ -355,7 +375,35 @@ def search_plots_in_extracted_vars(cell_vars):
 
         figure_data.append(fig_info)
 
-    return figure_data
+    figure_list = []
+    for fig_index, plot in enumerate(figure_data):
+        figure_title = plot["figure_title"]
+
+        # Check if the figure has any axes
+        if not plot["axes"]:
+            continue
+
+        for ax_index, ax in enumerate(plot["axes"]):
+            axis_title = ax["axis_title"]
+            x_label = ax["x_label"]
+            y_label = ax["y_label"]
+
+            # Collect data points for each axis
+            for dp_index, data_points in enumerate(ax["data_points"]):
+                if data_points:
+                    figure_list.append({
+                        "fig_index": fig_index,
+                        "ax_index": ax_index,
+                        "dp_index": dp_index,
+                        "figure_title": figure_title,
+                        "axis_title": axis_title,
+                        "x_label": x_label,
+                        "y_label": y_label,
+                        "data_points": data_points
+                    })
+
+
+    return figure_list
 
 def extract_cell_content_and_outputs(notebook_path, start_index, end_index, line_width=80):
     """

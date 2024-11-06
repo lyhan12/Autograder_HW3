@@ -58,78 +58,60 @@ class GradeAssignment(unittest.TestCase):
         end_cell_idx = end_cell['index']
 
         cell_vars = extract_variables(self.notebook_path, cell_idx=end_cell_idx - 1)
-        cell_plots = search_plots_in_extracted_vars(cell_vars)
+        figure_list = search_plots_in_extracted_vars(cell_vars)
 
-        last_plot = cell_plots[-1]
-        has_plot = len(cell_plots) > 0
-        
-        if not has_plot:
+        if len(figure_list) == 0:
             print("No plots found")
             set_score(0.0)
             return
 
-        figure_title= last_plot["figure_title"] 
-        has_ax = len(last_plot["axes"]) > 0
-        if not has_ax:
-            print("No axes found")
-            set_score(0.0)
-            return
 
-        #find the first ax that ax["data_points"] is non empty set
-        last_ax = None
-        for last_ax in last_plot["axes"]:
-            if len(last_ax["data_points"]) > 0:
-                break
+        # Step 2: Iterate over combinations and calculate scores
+        max_score = 0.0
+        best_figure = None
 
-        axis_title = last_ax["axis_title"]
-        x_label = last_ax["x_label"]
-        y_label = last_ax["y_label"]
-        data_points = last_ax["data_points"][0]
+        for figure in figure_list:
+            data_points = figure["data_points"]
+            min_year = min([x for x, y in data_points])
+            max_year = max([x for x, y in data_points])
+            min_temp = min([y for x, y in data_points])
+            max_temp = max([y for x, y in data_points])
 
-        has_data_points = len(data_points) > 0
-        if not has_data_points:
-            print("No data points found")
-            set_score(0.0)
-            return
+            year_in_range = (min_year == 1990 and max_year == 2010)
+            temp_in_range = (9.0 <= min_temp <= 11.0) and (11.5 <= max_temp <= 13.5)
 
-        min_year = min([x for x,y in data_points])
-        max_year = max([x for x,y in data_points])
-        min_temp = min([y for x,y in data_points])
-        max_temp = max([y for x,y in data_points])
-        avg_temp = np.mean([y for x,y in data_points])
+            x_label_correct = (figure["x_label"] == "Year")
+            y_label_correct = (figure["y_label"] == "Mean Temperature (°C)")
+            title_correct = (figure["axis_title"] == "Average Temperature (1990-2010)" or figure["figure_title"] == "Average Temperature (1990-2010)")
 
-        year_in_range = (min_year == 1990 and max_year == 2010)
-        temp_in_range = (9.0 <= min_temp <= 11.0) and (11.5 <= max_temp <= 13.5)
+            value_correct = (year_in_range and temp_in_range)
+            label_correct = sum([x_label_correct, y_label_correct, title_correct]) >= 2
 
-        x_label_correct = (x_label == "Year")
-        y_label_correct = (y_label == "Mean Temperature (°C)")
-        title_correct = (axis_title == "Average Temperature (1990-2010)" or figure_title == "Average Temperature (1990-2010)")
+            # Calculate score for this combination
+            score = 0.0
+            if value_correct:
+                score += 5.0
+                if not label_correct:
+                    score -= 2.0
 
-        value_correct = (year_in_range and temp_in_range)
-        label_correct = sum([x_label_correct, y_label_correct, title_correct]) >= 2
+            # Update max_score and best_combination if current score is higher
+            if score > max_score:
+                max_score = score
+                best_figure = figure
 
-        print("Min/Max Year: ", min_year, max_year)
-        print("Year in range: ", year_in_range)
-        print("Min/Max Temp: ", min_temp, max_temp)
-        print("Temp in range: ", temp_in_range)
-        print("X Label: ", x_label)
-        print("Y Label: ", y_label)
-        print("Figure Title: ", axis_title)
-        print("Axis Title: ", figure_title)
+        # Step 3: Print detailed information for the best combination
+        if best_figure:
+            print(f"Figure {best_figure['fig_index'] + 1}, Axis {best_figure['ax_index'] + 1}, Data Points {best_figure['dp_index'] + 1}")
+            print("Min/Max Year: ", min([x for x, y in best_figure["data_points"]]), max([x for x, y in best_figure["data_points"]]))
+            print("Min/Max Temp: ", min([y for x, y in best_figure["data_points"]]), max([y for x, y in best_figure["data_points"]]))
+            print("X Label: ", best_figure["x_label"])
+            print("Y Label: ", best_figure["y_label"])
+            print("Figure Title: ", best_figure["figure_title"])
+            print("Axis Title: ", best_figure["axis_title"])
+            print("Score: ", max_score)
 
-        print("Value in Range: ", value_correct)
-        print("Label Correct: ", label_correct)
-
-        score = 0.0
-
-        if value_correct:
-            score += 5.0
-
-            if not label_correct:
-                score -= 2.0
-
-        set_score(score)
-
+        # Set the highest score obtained
+        set_score(max_score)
 
     @partial_credit(2.0)
     @number("2.1.1")
@@ -510,7 +492,7 @@ class GradeAssignment(unittest.TestCase):
         correct_hair_colors = True
         for color in expected_hair_colors:
             if color not in str(potential_hair_colors):
-                print(f"Expected eye color {color} not found in potential_eye_colors")
+                print(f"Expected hair color {color} not found in potential_hair_colors")
                 correct_hair_colors = False
 
         unique_hair_colors = True
@@ -519,6 +501,7 @@ class GradeAssignment(unittest.TestCase):
         print("No duplicate values in potential_hair_colors: ", unique_hair_colors)
         print("Correct hair colors found: ", correct_hair_colors)
         score = 0.0
+
         if exists_potential_hair_colors:
             score += 2.0
             if unique_hair_colors:
@@ -547,7 +530,7 @@ class GradeAssignment(unittest.TestCase):
         correct_skin_colors = True
         for color in expected_skin_colors:
             if color not in str(potential_skin_colors):
-                print(f"Expected eye color {color} not found in potential_eye_colors")
+                print(f"Expected skin color {color} not found in potential_skin_colors")
                 correct_skin_colors = False
 
         unique_skin_colors = True
